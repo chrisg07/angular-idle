@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { TileComponent } from './tile/tile.component';
+import {StateService} from "./services/state.service";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,9 @@ import { TileComponent } from './tile/tile.component';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    StateService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,3 +1,5 @@
 <div class="grid">
-  <app-tile *ngFor="let tile of tiles" [tile]="tile"></app-tile>
+  <ng-container *ngFor="let row of tiles">
+    <app-tile *ngFor="let tile of row" [tile]="tile"></app-tile>
+  </ng-container>
 </div>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Tile} from "../domain/tile";
+import {StateService} from "../services/state.service";
 
 @Component({
   selector: 'app-map',
@@ -7,12 +8,10 @@ import {Tile} from "../domain/tile";
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent {
-  public tiles: Tile[] = new Array<Tile>();
+  public tiles !: Tile[][];
 
-  constructor() {
-    for (let i = 0; i < 9; i++) {
-      this.tiles.push(new Tile());
-    }
+  constructor(private state: StateService) {
+    this.tiles = this.state.surroundingCells;
 
     console.log(this.tiles)
   }
