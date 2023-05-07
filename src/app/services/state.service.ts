@@ -14,6 +14,7 @@ export class StateService {
   public state = new Subject<State>()
   private x: number;
   private y: number;
+
   constructor() {
     this.x = 50;
     this.y = 50;

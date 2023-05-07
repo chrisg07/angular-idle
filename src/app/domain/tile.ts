@@ -8,5 +8,6 @@ export class Tile {
     this.x = x;
     this.y = y;
     this.resources = Math.floor(Math.random() * 10);
+    this.isWall = Math.random() < 0.25;
   }
 }
