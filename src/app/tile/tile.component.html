@@ -1,9 +1,9 @@
 <div class="tile">
   <ng-container *ngIf="!tile.isWall">
-    <p>Coordinates: {{ tile.x }}, {{ tile.y }}</p>
-    <p>Resources: {{ tile.resources }}</p>
+<!--    <p>{{ tile.x }}, {{ tile.y }}</p>-->
+    <p>{{ tile.resources }}</p>
   </ng-container>
   <p *ngIf="tile.isWall">
-    <b>WALL</b>
+    ⬛
   </p>
 </div>

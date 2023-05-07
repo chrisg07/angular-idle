@@ -14,12 +14,13 @@ export class StateService {
   public state = new Subject<State>()
   private x: number;
   private y: number;
+  private mapWidth = 15;
 
   constructor() {
     this.x = 50;
     this.y = 50;
     this.map = this.generateMap(100, 100);
-    this.surroundingCells = this.getSurroundingCells(this.x, this.y, 5);
+    this.surroundingCells = this.getSurroundingCells(this.mapWidth);
   }
 
   private generateMap(height: number, width: number): Tile[][] {
@@ -34,7 +35,7 @@ export class StateService {
     return map;
   }
 
-  public getSurroundingCells(x: number, y: number, width: number): Tile[][] {
+  public getSurroundingCells(width: number): Tile[][] {
     // width must be odd
     if (width % 2 === 0) {
       width++;
@@ -60,19 +61,32 @@ export class StateService {
       tiles.push([...row]);
     }
 
-    // const surroundingTiles: Tile[][] = [
-    //   [this.map[x - 1][y + 1], this.map[x][y + 1], this.map[x + 1][y + 1]],
-    //   [this.map[x - 1][y], this.map[x][y], this.map[x + 1][y]],
-    //   [this.map[x - 1][y - 1], this.map[x][y - 1], this.map[x + 1][y - 1]]
-    // ];
     return tiles;
+  }
+
+  public setWidth(width?: number): void {
+    this.mapWidth = width ?? this.mapWidth;
+    this.move(0, 0);
+
+    const cellGrid = document.getElementById('cell-grid');
+    if (cellGrid) {
+      cellGrid.style.gridTemplateColumns = `repeat(${width}, 1fr)`;
+    }
+  }
+
+  public increaseWidth(): void {
+    this.setWidth(this.mapWidth + 2);
+  }
+
+  public decreaseWidth(): void {
+    this.setWidth(this.mapWidth - 2);
   }
 
   public move(xDelta: number, yDelta: number): void {
     this.x += xDelta;
     this.y += yDelta;
     this.resources += this.map[this.x][this.y].resources;
-    this.surroundingCells = this.getSurroundingCells(this.x, this.y, 5);
+    this.surroundingCells = this.getSurroundingCells(this.mapWidth);
     this.state.next(new State(this.surroundingCells, this.resources));
   }
 

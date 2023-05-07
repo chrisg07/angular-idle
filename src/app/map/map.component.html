@@ -1,4 +1,9 @@
-<div class="grid">
+
+<button (click)="decreaseZoom()">Decrease Zoom</button>
+<button (click)="increaseZoom()">Increase Zoom</button>
+
+
+<div id="cell-grid" class="grid">
   <ng-container *ngFor="let row of tiles">
     <app-tile *ngFor="let tile of row" [tile]="tile"></app-tile>
   </ng-container>
