@@ -28,14 +28,17 @@ export class AppComponent {
         case 87:
         case 38:
           console.log('go north');
+          this.state.move(0, 1);
           break;
         case 68:
         case 39:
           console.log('go east');
+          this.state.move(1, 0);
           break;
         case 83:
         case 40:
           console.log('go south');
+          this.state.move(0, -1);
           break;
       }
     })

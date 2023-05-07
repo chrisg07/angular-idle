@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Tile} from "../domain/tile";
+import {State} from "../domain/state";
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +11,7 @@ export class StateService {
   private map: Tile[][] = new Array<Array<Tile>>();
   public surroundingCells !:  Tile[][];
   private resources = 0;
+  public state = new Subject<State>()
   private x: number;
   private y: number;
   constructor() {
@@ -29,6 +32,7 @@ export class StateService {
     }
     return map;
   }
+
   public getSurroundingCells(x: number, y: number): Tile[][] {
     const surroundingTiles: Tile[][] = [
       [this.map[x - 1][y + 1], this.map[x][y + 1], this.map[x + 1][y + 1]],
@@ -42,6 +46,7 @@ export class StateService {
     this.x += xDelta;
     this.y += yDelta;
     this.surroundingCells = this.getSurroundingCells(this.x, this.y);
+    this.state.next(new State(this.surroundingCells, this.resources));
     console.log(this.surroundingCells);
   }
 
