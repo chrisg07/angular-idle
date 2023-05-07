@@ -10,7 +10,7 @@ export class StateService {
 
   private map: Tile[][] = new Array<Array<Tile>>();
   public surroundingCells !:  Tile[][];
-  private resources = 0;
+  public resources = 0;
   public state = new Subject<State>()
   private x: number;
   private y: number;
@@ -45,9 +45,9 @@ export class StateService {
   public move(xDelta: number, yDelta: number): void {
     this.x += xDelta;
     this.y += yDelta;
+    this.resources += this.map[this.x][this.y].resources;
     this.surroundingCells = this.getSurroundingCells(this.x, this.y);
     this.state.next(new State(this.surroundingCells, this.resources));
-    console.log(this.surroundingCells);
   }
 
   public addResources(delta: number): void {
